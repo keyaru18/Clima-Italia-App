@@ -2,11 +2,11 @@
 
 #Define el path al entorno virtual si es necesario
 #source /home/josefu/TokyoWeatherReport/env/bin/activate
-source /home/lenin27amangandi/miniforge3/etc/profile.d/conda.sh
+source /home/richi20miniforge3/etc/profile.d/conda.sh
 eval "$(conda shell.bash hook)"
-conda activate xander
+conda activate keyaru20
 #Define el path al script de Python
-SCRIPT_PATH="/home/lenin27amangandi/ItalianWeather/main.py"
+SCRIPT_PATH="/home/richi20/ItalianWeather/main.py"
 
 #Ejecuta el script de Python
 python3 "$SCRIPT_PATH"
