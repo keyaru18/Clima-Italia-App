@@ -26,18 +26,19 @@ las destrezas obtenidas durante el transcurso de la asignatura de
 Se recomienda que el proyecto se cree en el /home/ del sistema
 operativo i.e. /home/<user>/. Allí se creará la carpeta /CityWeather/
 #+begin_src shell :results output :exports both
-  mkdir ItalianWeather
-  cd ItalianWeather
+  mkdir Clima-Italia-App
+  cd Clima-Italia-App
   mkdir Weather-Site
   cd Weather-Site
   mkdir content
+  cd content
   mkdir public
   cd public
   pwd
 #+end_src
 
 #+RESULTS:
-: /home/lenin27amangandi/ItalianWeather/Weather-Site/public
+: /home/richi20/Clima-Italia-App/Weather-Site/content
 
 El proyecto ha de tener los siguientes archivos y
 subdirectorios. Adaptar los nombres de los archivos según las ciudades
@@ -54,38 +55,32 @@ tree
 .
 ├── Weather-Site
 │   ├── build-site.el
-│   ├── build-site.el:Zone.Identifier
-│   ├── build-site.el:Zone.Identifier:Zone.Identifier
-│   ├── build-site.el~
-│   ├── build-site.el~:Zone.Identifier
 │   ├── build.sh
-│   ├── build.sh:Zone.Identifier
-│   ├── build.sh:Zone.Identifier:Zone.Identifier
-│   ├── build.sh~
-│   ├── build.sh~:Zone.Identifier
 │   ├── content
+│   │   ├── #index.org#
 │   │   ├── images
+│   │   │   ├── humedad.png
+│   │   │   ├── presion.png
+│   │   │   └── temperature.png
 │   │   ├── index.org
 │   │   ├── index.org:Zone.Identifier
+│   │   ├── index.org:Zone.Identifier:Zone.Identifier
 │   │   ├── index.org~
-│   │   └── index.org~:Zone.Identifier
+│   │   ├── index.org~:Zone.Identifier
+│   │   └── index.org~:Zone.Identifier:Zone.Identifier
 │   └── public
 │       ├── images
-│       ├── index.html
-│       └── index.html:Zone.Identifier
+│       │   ├── humedad.png
+│       │   ├── presion.png
+│       │   └── temperature.png
+│       └── index.html
 ├── clima-italia-hoy.csv
-├── clima-italia-hoy.csv:Zone.Identifier
 ├── get-weather.sh
-├── get-weather.sh:Zone.Identifier
-├── get-weather.sh:Zone.Identifier:Zone.Identifier
-├── get-weather.sh~
-├── get-weather.sh~:Zone.Identifier
 ├── main.py
-├── main.py:Zone.Identifier
 ├── output.log
-└── output.log:Zone.Identifier
+└── stats.dat
 
-6 directories, 27 files
+6 directories, 21 files
 #+end_example
 
 Puede usar Emacs para la creación de la estructura de su proyecto
@@ -130,9 +125,6 @@ WSL. Las etapas del problema se subdividen en:
        (rain) y nieve (snow) se dan a veces si existe el fenómeno.
     3. Desarrollar un ejecutable /get-weather.sh/ para ejecutar el
        programa Python/Java.[fn:1]
-       #+begin_src shell :exports both
-         
-       #+end_src
     4. Configurar Crontab para la adquisición de datos. Escriba el
        comando configurado. Respalde la ejecución de crontab en un
        archivo output.log
@@ -163,10 +155,10 @@ desarrollado así como la **estrategia de solución** adoptada por el
 grupo para resolver el problema. Divida su código en unidades
 funcionales para facilitar su presentación y exposición.
 
-Lectura del API
+* Lectura del API
 
-
-#+caption: Inicializar variables para el API
+- Inicializar variables para el API
+  
 #+begin_src python :session :results output exports both
 import requests
 import csv
@@ -187,9 +179,7 @@ URL = f'http://api.openweathermap.org/data/3.0/weather?lat={LATITUD}&lon={LONGIT
 
 #+RESULTS:
 
-
-#+caption: Guardar datos en el Archivo CSV
-
+- Guardar datos en el Archivo CSV
 #+begin_src python :session :results output exports both
 import os
 import csv 
@@ -206,7 +196,7 @@ def escribir_csv(datos):
 #+end_src
 
 
-#+caption: Funcion Principal
+- Funcion Principal
 #+begin_src python :session :results output exports both
 def main():
     datos_climaticos = obtener_datos_climaticos()
@@ -231,30 +221,30 @@ which sh
 #+RESULTS:
 : /usr/bin/sh
 
-#+caption: De igual manera se requiere localizar el entorno de mamba *xander* que será utilizado
+De igual manera se requiere localizar el entorno de mamba *keyaru20* que será utilizado
 
 #+begin_src shell :results output :exports both
 which mamba
 #+end_src
 
 #+RESULTS:
-: /home/iccd332/miniforge3/condabin/mamba
+: /home/richi20/miniforge3/condabin/mamba
 
-#+caption: Con esto el archivo ejecutable a de tener (adapte el código según las
+Con esto el archivo ejecutable a de tener (adapte el código según las
 condiciones de su máquina):
 
 #+begin_src shell :results output :exports both
 #!/usr/bin/sh
-source /home/iccd332/miniforge3/etc/profile.d/conda.sh
+source /home/iccd332richi20/miniforge3/etc/profile.d/conda.sh
 eval "$(conda shell.bash hook)"
-conda activate iccd332
+conda activate keyaru20
 #python main.py
 #+end_src
 
 #+RESULTS:
 
 
-#+caption: Finalmente convierta en ejecutable como se explicó en clases y laboratorio
+Finalmente convierta en ejecutable como se explicó en clases y laboratorio
 #+begin_src shell :results output :exports both
 #!/usr/bin/sh
 nano get-weather.sh
@@ -266,13 +256,14 @@ chmod +x get-weather.sh
 Se indica la configuración realizada en crontab para la adquisición de datos
 
 #+begin_src shell
-*/45 * * * * cd Italianweather && ./get-weather.sh >> output.log 2>&1
+*/5 * * * * cd Clima-Italia-App && ./get-weather.sh >> output.log 2>&1
 #+end_src
 
 - Recuerde remplazar <City> por el nombre de la ciudad que analice
 - Recuerde ajustar el tiempo para potenciar tomar datos nuevos
 - Recuerde que ~2>&1~ permite guardar en ~output.log~ tanto la salida
   del programa como los errores en la ejecución.
+  
 * Presentación de resultados
 
 Para la pressentación de resultados se utilizan las librerías de Python:
@@ -290,13 +281,12 @@ install <nombre-paquete>~
 Presentar una muestra de 10 valores aleatorios de los datos obtenidos.
 
 
-#+caption: Lectura de archivo csv
-
+- Lectura de archivo csv
 #+begin_src python :session :results output exports both
 import os
 import pandas as pd
 
-file_path = "/home/iccd332/ItalianWeather/clima-italia-hoy.csv"
+file_path = "/home/richi20/Clima-Italia-App/clima-italia-hoy.csv"
 
 if os.path.exists(file_path):
     df = pd.read_csv(file_path)
@@ -306,11 +296,10 @@ else:
 #+end_src
 
 #+RESULTS:
-: (46, 8)
+: (47, 8)
 
 
-
-#+caption: Despliegue de datos aleatorios
+- Despliegue de datos aleatorios
 #+begin_src python :session :exports both :results value table :return table
 table1 = df.sample(10)
 table = [list(table1)]+[None]+table1.values.tolist()
@@ -319,23 +308,24 @@ table = [list(table1)]+[None]+table1.values.tolist()
 #+RESULTS:
 | fecha_hora          | temperatura | humedad | presion | clima  | estado_clima  | ciudad | pais |
 |---------------------+-------------+---------+---------+--------+---------------+--------+------|
-| 2025-02-07 23:45:03 |        3.85 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-07 22:59:04 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-08 00:55:02 |        2.73 |      73 |    1027 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-07 23:30:04 |        3.29 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-08 00:10:04 |        3.29 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-07 22:58:04 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-08 00:20:03 |        3.85 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-08 00:50:02 |        3.29 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
-| 2025-02-07 22:51:03 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-08 01:00:02 |        2.73 |      73 |    1027 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-07 22:48:03 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-08 00:45:02 |        3.29 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-07 22:47:09 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-07 22:45:04 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
 | 2025-02-08 00:15:03 |        3.85 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-08 00:40:02 |        3.29 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-07 23:05:03 |        3.29 |      74 |    1028 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-08 00:30:03 |        3.29 |      74 |    1027 | Clouds | broken clouds | Italy  | IT   |
+| 2025-02-08 00:55:02 |        2.73 |      73 |    1027 | Clouds | broken clouds | Italy  | IT   |
 
 
+#+caption: Análisis de Datos
 #+begin_src  python :results output
 import pandas as pd
 
 # Cargar el archivo CSV en un DataFrame
-df = pd.read_csv('/home/iccd332/ItalianWeather/clima-italia-hoy.csv')
+df = pd.read_csv('/home/richi20/Clima-Italia-App/clima-italia-hoy.csv')
 
 # Mostrar la estructura del DataFrame (número de filas y columnas)
 print(df.shape)
@@ -354,7 +344,7 @@ print(f"Temperatura promedio: {temp_promedio} K")
 
 #+RESULTS:
 #+begin_example
-(46, 8)
+(47, 8)
             fecha_hora  temperatura  humedad  ...   estado_clima ciudad pais
 0  2025-02-07 22:45:04         3.29       74  ...  broken clouds  Italy   IT
 1  2025-02-07 22:46:03         3.29       74  ...  broken clouds  Italy   IT
@@ -363,7 +353,7 @@ print(f"Temperatura promedio: {temp_promedio} K")
 4  2025-02-07 22:47:09         3.29       74  ...  broken clouds  Italy   IT
 
 [5 rows x 8 columns]
-Temperatura promedio: 3.6415217391304346 K
+Temperatura promedio: 3.6812765957446802 K
 #+end_example
 
 
@@ -376,7 +366,7 @@ El siguiente cógido permite hacer la gráfica de la temperatura vs
 tiempo para Org 9.7+. Para saber que versión dispone puede ejecutar
 ~M-x org-version~
 
-
+#+caption: Código 1
 #+begin_src python :results file :exports both :session
 import os
 import pandas as pd
@@ -388,7 +378,7 @@ if not os.path.exists('./images'):
     os.makedirs('./images')
 
 # Cargar el archivo CSV en un DataFrame
-file_path = '/home/iccd332/ItalianWeather/clima-italia-hoy.csv'
+file_path = '/home/richi20/Clima-Italia-App/clima-italia-hoy.csv'
 df = pd.read_csv(file_path)
 
 # Convertir la columna 'fecha_hora' a tipo datetime y establecerla como índice
@@ -430,7 +420,114 @@ fname
 [[file:./images/temperature.png]]
 
 
+** Gráfica Presión vs Tiempo (Gráfica de Interés)
+#+caption: Código 2
+#+begin_src python :results file :exports both :session
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
+# Asegurarse de que el directorio ./images exista
+if not os.path.exists('./images'):
+    os.makedirs('./images')
+
+# Cargar el archivo CSV en un DataFrame
+file_path = '/home/richi20/Clima-Italia-App/clima-italia-hoy.csv'
+df = pd.read_csv(file_path)
+
+# Convertir la columna 'fecha_hora' a tipo datetime y establecerla como índice
+df['fecha_hora'] = pd.to_datetime(df['fecha_hora'])
+df.set_index('fecha_hora', inplace=True)
+
+# Crear la gráfica
+fig = plt.figure(figsize=(10, 6))
+plt.plot(df.index, df['presion'])  # Dibuja temperatura vs tiempo
+
+# Ajustes para la fecha en el eje X
+plt.gca().xaxis.set_major_locator(mdates.HourLocator(interval=2))  # Cada 2 horas
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))  # Formato de fecha
+plt.xticks(rotation=40)  # Rotar etiquetas para mejorar la legibilidad
+
+# Añadir título y etiquetas
+plt.title(f"Presion vs Tiempo en {df['ciudad'].iloc[0]}")
+plt.xlabel('Fecha y Hora')
+plt.ylabel('Presion (Pa)')
+
+# Añadir una cuadrícula para facilitar la lectura
+plt.grid(True)
+
+# Ajustar el layout para evitar que se corten las etiquetas
+fig.tight_layout()
+
+# Guardar la imagen
+fname = './images/presion.png'
+plt.savefig(fname)
+
+# Mostrar la gráfica
+#plt.show()
+fname
+# Confirmar que se ha guardado la imagen
+#print(f"Gráfica guardada en: {fname}")
+#+end_src
+
+#+RESULTS:
+[[file:./images/presion.png]]
+
+
+** Gráfica Humedad vs Tiempo
+#+caption: Código 3
+#+begin_src python :results file :exports both :session
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
+# Asegurarse de que el directorio ./images exista
+if not os.path.exists('./images'):
+    os.makedirs('./images')
+
+# Cargar el archivo CSV en un DataFrame
+file_path = '/home/richi20/Clima-Italia-App/clima-italia-hoy.csv'
+df = pd.read_csv(file_path)
+
+# Convertir la columna 'fecha_hora' a tipo datetime y establecerla como índice
+df['fecha_hora'] = pd.to_datetime(df['fecha_hora'])
+df.set_index('fecha_hora', inplace=True)
+
+# Crear la gráfica
+fig = plt.figure(figsize=(10, 6))
+plt.plot(df.index, df['humedad'])  # Dibuja temperatura vs tiempo
+
+# Ajustes para la fecha en el eje X
+plt.gca().xaxis.set_major_locator(mdates.HourLocator(interval=2))  # Cada 2 horas
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))  # Formato de fecha
+plt.xticks(rotation=40)  # Rotar etiquetas para mejorar la legibilidad
+
+# Añadir título y etiquetas
+plt.title(f"Humedad vs Tiempo en {df['ciudad'].iloc[0]}")
+plt.xlabel('Fecha y Hora')
+plt.ylabel('Hmedad (m³)')
+
+# Añadir una cuadrícula para facilitar la lectura
+plt.grid(True)
+
+# Ajustar el layout para evitar que se corten las etiquetas
+fig.tight_layout()
+
+# Guardar la imagen
+fname = './images/humedad.png'
+plt.savefig(fname)
+
+# Mostrar la gráfica
+#plt.show()
+fname
+# Confirmar que se ha guardado la imagen
+#print(f"Gráfica guardada en: {fname}")
+#+end_src
+
+#+RESULTS:
+[[file:./images/humedad.png]]
 
 
 Debido a que el archivo index.org se abre dentro de la carpeta
@@ -438,19 +535,15 @@ Debido a que el archivo index.org se abre dentro de la carpeta
 carpeta /public/ es necesario copiar el archivo a la ubicación
 equivalente en ~/public/images~
 
-#+begin_src shell
-cp -rfv ./images/* /home/iccd332/ItalianWeather/Weather-Site/public/images
+#+begin_src shell :results file :exports both :session
+cp -rfv ./images/* /home/richi20/Clima-Italia-App/Weather-Site/public/images
 #+end_src
 
 #+RESULTS:
-: './images/temperature.png' -> '/home/iccd332/ItalianWeather/Weather-Site/public/images/temperature.png'
+| './images/humedad.png'     | -> | '/home/richi20/Clima-Italia-App/Weather-Site/public/images/humedad.png'     |
+| './images/presion.png'     | -> | '/home/richi20/Clima-Italia-App/Weather-Site/public/images/presion.png'     |
+| './images/temperature.png' | -> | '/home/richi20/Clima-Italia-App/Weather-Site/public/images/temperature.png' |
 
-
-
-
-
-**  Realice una gráfica de Humedad con respecto al tiempo
-**  *Opcional* Presente alguna gráfica de interés.
 
 * Referencias
 - [[https://emacs.stackexchange.com/questions/28715/get-pandas-data-frame-as-a-table-in-org-babel][presentar dataframe como tabla en emacs org]]

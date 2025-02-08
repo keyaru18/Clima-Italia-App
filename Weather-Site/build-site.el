@@ -1,6 +1,6 @@
 ;; load the publishing system
 (require 'ox-publish)
-(message "Construcción completa");; Set the package installation directory so that packages aren't stored in the
+(message "Construcción completa pe causa");; Set the package installation directory so that packages aren't stored in the
 ;; ~/.emacs.d/elpa path.
 (require 'package)
 (setq package-user-dir (expand-file-name "./.packages"))
@@ -22,7 +22,8 @@
 (setq org-html-validation-link nil            ;; Don't show validation link
       org-html-head-include-scripts nil       ;; Use our own scripts
       org-html-head-include-default-style nil ;; Use our own styles
-      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
+      ;; org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
+      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css\" />")      
 
 ;; Define the publishing project
 (setq org-publish-project-alist
@@ -41,4 +42,4 @@
 ;; Generate the site output
 (org-publish-all t)
 
-(message "Generación Completa!")
+(message "Finalizado, a la Firme!")
