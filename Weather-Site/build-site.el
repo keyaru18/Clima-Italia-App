@@ -1,7 +1,8 @@
 ;; load the publishing system
 (require 'ox-publish)
-(message "Construcción completa pe causa");; Set the package installation directory so that packages aren't stored in the
-;; ~/.emacs.d/elpa path.
+(message "Construcción completa")
+
+;; Set the package installation directory
 (require 'package)
 (setq package-user-dir (expand-file-name "./.packages"))
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -18,12 +19,21 @@
 ;; Load the publishing system
 (require 'ox-publish)
 
-;; Customize the HTML output
+;; Customize the HTML output (Manteniendo el Framework y Agregando Imagen de Fondo)
 (setq org-html-validation-link nil            ;; Don't show validation link
       org-html-head-include-scripts nil       ;; Use our own scripts
       org-html-head-include-default-style nil ;; Use our own styles
-      ;; org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
-      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css\" />")      
+      org-html-head "
+<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
+<style>
+  body {
+    background-image: url('https://c4.wallpaperflare.com/wallpaper/719/815/793/anime-art-anime-girl-rain-sadness-wallpaper-preview.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+</style>")
+
 
 ;; Define the publishing project
 (setq org-publish-project-alist
@@ -42,4 +52,4 @@
 ;; Generate the site output
 (org-publish-all t)
 
-(message "Finalizado, a la Firme!")
+(message "Generación Completa!")
