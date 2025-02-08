@@ -1,4 +1,3 @@
-;; load the publishing system
 (require 'ox-publish)
 (message "Construcción completa");; Set the package installation directory so that packages aren't stored in the
 ;; ~/.emacs.d/elpa path.
@@ -36,7 +35,15 @@
              :with-creator t            ;; Include Emacs and Org versions in footer
              :with-toc t                ;; Include a table of contents
              :section-numbers nil       ;; Don't include section numbers
-             :time-stamp-file nil)))    ;; Don't include time stamp in file
+             :time-stamp-file nil)      ;; Don't include time stamp in file
+
+;; Publicación de las imágenes
+       (list "org-site:images"
+             :base-directory "./content/images"               ;; Directorio de origen de las imágenes
+             :base-extension "jpg\\|jpeg\\|png\\|gif\\|svg"   ;; Extensiones de archivos a incluir
+             :publishing-directory "./public/images"          ;; Directorio de salida
+             :recursive t                                     ;; Publicar recursivamente
+             :publishing-function 'org-publish-attachment)))  ;; Función de publicación para archivos adjuntos
 
 ;; Generate the site output
 (org-publish-all t)
