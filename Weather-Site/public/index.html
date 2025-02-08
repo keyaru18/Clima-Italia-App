@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<!-- 2025-02-08 Sat 16:20 -->
+<!-- 2025-02-08 Sat 17:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Proyecto ICCD332 Arquitectura de Computadores</title>
@@ -18,7 +18,37 @@
     background-attachment: fixed;
     background-position: center;
   }
+
+  .corner-gif-right {
+    position: fixed;
+    top: -100px;
+    right: -200px;
+    width: 800px;
+    height: 800px;
+    z-index: 1000;
+  }
+
+  .corner-gif-left {
+    position: fixed;
+    top: 180px;
+    left: 20px;
+    width: 350px;
+    height: 350px;
+    z-index: 1000;
+  }
+
+  .gif-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 </style>
+<div class="corner-gif-right gif-container">
+  <img src="./images/P3Rt-unscreen.gif" alt="Right Corner GIF">
+</div>
+<div class="corner-gif-left gif-container">
+  <img src="https://www.ahiva.info/gifs-animados/Clima/Lluvia/Lluvia-31.gif" alt="Left Corner GIF">
+</div>
 <script>
   window.MathJax = {
     tex: {
@@ -59,33 +89,33 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8be877c">1. City Weather APP</a>
+<li><a href="#orgdf5297b">1. City Weather APP</a>
 <ul>
-<li><a href="#org9465266">1.1. Estructura del proyecto</a></li>
-<li><a href="#org2469359">1.2. Formulación del Problema</a></li>
-<li><a href="#orgd02b51e">1.3. Descripción del código</a></li>
+<li><a href="#org1a1e772">1.1. Estructura del proyecto</a></li>
+<li><a href="#org93f7a4e">1.2. Formulación del Problema</a></li>
+<li><a href="#orgf85ca61">1.3. Descripción del código</a></li>
 </ul>
 </li>
-<li><a href="#orgf97e58d">2. Lectura del API</a>
+<li><a href="#org76176c3">2. Lectura del API</a>
 <ul>
-<li><a href="#orgcdf0b9e">2.1. Script ejecutable sh</a></li>
-<li><a href="#orgfbfb0e9">2.2. Configuración de Crontab</a></li>
+<li><a href="#org51f13cd">2.1. Script ejecutable sh</a></li>
+<li><a href="#org5ac9b14">2.2. Configuración de Crontab</a></li>
 </ul>
 </li>
-<li><a href="#org32f08c1">3. Presentación de resultados</a>
+<li><a href="#orgb8e9334">3. Presentación de resultados</a>
 <ul>
-<li><a href="#org2ca36aa">3.1. Muestra Aleatoria de datos</a></li>
-<li><a href="#orga5ee7cc">3.2. Gráfica Temperatura vs Tiempo</a></li>
-<li><a href="#org0bf41f6">3.3. Gráfica Presión vs Tiempo (Gráfica de Interés)</a></li>
-<li><a href="#orgbf3e4a5">3.4. Gráfica Humedad vs Tiempo</a></li>
+<li><a href="#org5e01121">3.1. Muestra Aleatoria de datos</a></li>
+<li><a href="#orgbce789d">3.2. Gráfica Temperatura vs Tiempo</a></li>
+<li><a href="#org0251572">3.3. Gráfica Presión vs Tiempo (Gráfica de Interés)</a></li>
+<li><a href="#org6652e3d">3.4. Gráfica Humedad vs Tiempo</a></li>
 </ul>
 </li>
-<li><a href="#org0558d35">4. Referencias</a></li>
+<li><a href="#orge69904b">4. Referencias</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8be877c" class="outline-2">
-<h2 id="org8be877c"><span class="section-number-2">1.</span> City Weather APP</h2>
+<div id="outline-container-orgdf5297b" class="outline-2">
+<h2 id="orgdf5297b"><span class="section-number-2">1.</span> City Weather APP</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Este es el proyecto de fin de semestre en donde se pretende demostrar
@@ -101,8 +131,8 @@ las destrezas obtenidas durante el transcurso de la asignatura de
 </ol>
 </div>
 
-<div id="outline-container-org9465266" class="outline-3">
-<h3 id="org9465266"><span class="section-number-3">1.1.</span> Estructura del proyecto</h3>
+<div id="outline-container-org1a1e772" class="outline-3">
+<h3 id="org1a1e772"><span class="section-number-3">1.1.</span> Estructura del proyecto</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Se recomienda que el proyecto se cree en el <i>home</i> del sistema
@@ -132,7 +162,7 @@ subdirectorios. Adaptar los nombres de los archivos según las ciudades
 específicas del grupo.
 </p>
 
-<pre class="example" id="org715b79a">
+<pre class="example" id="orgc80cd16">
 .
 ├── Weather-Site
 │   ├── build-site.el
@@ -185,8 +215,8 @@ Aquí va sus comandos
 </div>
 </div>
 
-<div id="outline-container-org2469359" class="outline-3">
-<h3 id="org2469359"><span class="section-number-3">1.2.</span> Formulación del Problema</h3>
+<div id="outline-container-org93f7a4e" class="outline-3">
+<h3 id="org93f7a4e"><span class="section-number-3">1.2.</span> Formulación del Problema</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Se desea realizar un registro climatológico de una ciudad
@@ -253,8 +283,8 @@ dirección será remitida en la contestación de la tarea</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-orgd02b51e" class="outline-3">
-<h3 id="orgd02b51e"><span class="section-number-3">1.3.</span> Descripción del código</h3>
+<div id="outline-container-orgf85ca61" class="outline-3">
+<h3 id="orgf85ca61"><span class="section-number-3">1.3.</span> Descripción del código</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 En esta sección se debe detallar segmentos importantes del código
@@ -266,8 +296,8 @@ funcionales para facilitar su presentación y exposición.
 </div>
 </div>
 
-<div id="outline-container-orgf97e58d" class="outline-2">
-<h2 id="orgf97e58d"><span class="section-number-2">2.</span> Lectura del API</h2>
+<div id="outline-container-org76176c3" class="outline-2">
+<h2 id="org76176c3"><span class="section-number-2">2.</span> Lectura del API</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>Inicializar variables para el API</li>
@@ -327,8 +357,8 @@ funcionales para facilitar su presentación y exposición.
 </div>
 
 
-<div id="outline-container-orgcdf0b9e" class="outline-3">
-<h3 id="orgcdf0b9e"><span class="section-number-3">2.1.</span> Script ejecutable sh</h3>
+<div id="outline-container-org51f13cd" class="outline-3">
+<h3 id="org51f13cd"><span class="section-number-3">2.1.</span> Script ejecutable sh</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Se coloca el contenido del script ejecutable. Recuerde que se debe
@@ -388,8 +418,8 @@ chmod +x get-weather.sh
 </div>
 </div>
 
-<div id="outline-container-orgfbfb0e9" class="outline-3">
-<h3 id="orgfbfb0e9"><span class="section-number-3">2.2.</span> Configuración de Crontab</h3>
+<div id="outline-container-org5ac9b14" class="outline-3">
+<h3 id="org5ac9b14"><span class="section-number-3">2.2.</span> Configuración de Crontab</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Se indica la configuración realizada en crontab para la adquisición de datos
@@ -410,8 +440,8 @@ del programa como los errores en la ejecución.</li>
 </div>
 </div>
 
-<div id="outline-container-org32f08c1" class="outline-2">
-<h2 id="org32f08c1"><span class="section-number-2">3.</span> Presentación de resultados</h2>
+<div id="outline-container-orgb8e9334" class="outline-2">
+<h2 id="orgb8e9334"><span class="section-number-2">3.</span> Presentación de resultados</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Para la pressentación de resultados se utilizan las librerías de Python:
@@ -431,8 +461,8 @@ install &lt;nombre-paquete&gt;</code>
 </p>
 </div>
 
-<div id="outline-container-org2ca36aa" class="outline-3">
-<h3 id="org2ca36aa"><span class="section-number-3">3.1.</span> Muestra Aleatoria de datos</h3>
+<div id="outline-container-org5e01121" class="outline-3">
+<h3 id="org5e01121"><span class="section-number-3">3.1.</span> Muestra Aleatoria de datos</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Presentar una muestra de 10 valores aleatorios de los datos obtenidos.
@@ -638,8 +668,8 @@ df.set_index(<span style="font-style: italic;">'fecha_hora'</span>, inplace=<spa
 
 
 
-<div id="outline-container-orga5ee7cc" class="outline-3">
-<h3 id="orga5ee7cc"><span class="section-number-3">3.2.</span> Gráfica Temperatura vs Tiempo</h3>
+<div id="outline-container-orgbce789d" class="outline-3">
+<h3 id="orgbce789d"><span class="section-number-3">3.2.</span> Gráfica Temperatura vs Tiempo</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Realizar una gráfica de la Temperatura en el tiempo.
@@ -703,7 +733,7 @@ fname
 </div>
 
 
-<div id="orgc341644" class="figure">
+<div id="orgac4570a" class="figure">
 <p><img src="./images/temperature.png" alt="temperature.png" />
 </p>
 </div>
@@ -711,8 +741,8 @@ fname
 </div>
 
 
-<div id="outline-container-org0bf41f6" class="outline-3">
-<h3 id="org0bf41f6"><span class="section-number-3">3.3.</span> Gráfica Presión vs Tiempo (Gráfica de Interés)</h3>
+<div id="outline-container-org0251572" class="outline-3">
+<h3 id="org0251572"><span class="section-number-3">3.3.</span> Gráfica Presión vs Tiempo (Gráfica de Interés)</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Código 2</label><pre class="src src-python"><span style="font-weight: bold;">import</span> os
@@ -765,7 +795,7 @@ fname
 </div>
 
 
-<div id="orgb46feec" class="figure">
+<div id="orgf7c0642" class="figure">
 <p><img src="./images/presion.png" alt="presion.png" />
 </p>
 </div>
@@ -773,8 +803,8 @@ fname
 </div>
 
 
-<div id="outline-container-orgbf3e4a5" class="outline-3">
-<h3 id="orgbf3e4a5"><span class="section-number-3">3.4.</span> Gráfica Humedad vs Tiempo</h3>
+<div id="outline-container-org6652e3d" class="outline-3">
+<h3 id="org6652e3d"><span class="section-number-3">3.4.</span> Gráfica Humedad vs Tiempo</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Código 3</label><pre class="src src-python"><span style="font-weight: bold;">import</span> os
@@ -827,7 +857,7 @@ fname
 </div>
 
 
-<div id="org21f0fbd" class="figure">
+<div id="orgc8b4d5c" class="figure">
 <p><img src="./images/humedad.png" alt="humedad.png" />
 </p>
 </div>
@@ -880,8 +910,8 @@ equivalente en <code>/public/images</code>
 </div>
 
 
-<div id="outline-container-org0558d35" class="outline-2">
-<h2 id="org0558d35"><span class="section-number-2">4.</span> Referencias</h2>
+<div id="outline-container-orge69904b" class="outline-2">
+<h2 id="orge69904b"><span class="section-number-2">4.</span> Referencias</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li><a href="https://emacs.stackexchange.com/questions/28715/get-pandas-data-frame-as-a-table-in-org-babel">presentar dataframe como tabla en emacs org</a></li>
@@ -903,7 +933,7 @@ equivalente en <code>/public/images</code>
 <div id="postamble" class="status">
 <p class="date">Fecha: 2024-08-07</p>
 <p class="author">Autor: Integrantes: Lenin Amangandi,Richard Tipantiza</p>
-<p class="date">Created: 2025-02-08 Sat 16:20</p>
+<p class="date">Created: 2025-02-08 Sat 17:10</p>
 </div>
 </body>
 </html>

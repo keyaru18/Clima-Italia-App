@@ -1,6 +1,6 @@
 ;; load the publishing system
 (require 'ox-publish)
-(message "Construcción completa")
+(message "INICIANDO PE CAUSA")
 
 ;; Set the package installation directory
 (require 'package)
@@ -19,10 +19,10 @@
 ;; Load the publishing system
 (require 'ox-publish)
 
-;; Customize the HTML output (Manteniendo el Framework y Agregando Imagen de Fondo)
-(setq org-html-validation-link nil            ;; Don't show validation link
-      org-html-head-include-scripts nil       ;; Use our own scripts
-      org-html-head-include-default-style nil ;; Use our own styles
+;; Customize the HTML output
+(setq org-html-validation-link nil            
+      org-html-head-include-scripts nil       
+      org-html-head-include-default-style nil 
       org-html-head "
 <link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
 <style>
@@ -32,8 +32,37 @@
     background-attachment: fixed;
     background-position: center;
   }
-</style>")
 
+  .corner-gif-right {
+    position: fixed;
+    top: -100px;
+    right: -200px;
+    width: 800px;
+    height: 800px;
+    z-index: 1000;
+  }
+
+  .corner-gif-left {
+    position: fixed;
+    top: 180px;
+    left: 20px;
+    width: 350px;
+    height: 350px;
+    z-index: 1000;
+  }
+
+  .gif-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>
+<div class=\"corner-gif-right gif-container\">
+  <img src=\"./images/P3Rt-unscreen.gif\" alt=\"Right Corner GIF\">
+</div>
+<div class=\"corner-gif-left gif-container\">
+  <img src=\"https://www.ahiva.info/gifs-animados/Clima/Lluvia/Lluvia-31.gif\" alt=\"Left Corner GIF\">
+</div>")
 
 ;; Define the publishing project
 (setq org-publish-project-alist
@@ -43,13 +72,19 @@
              :base-directory "./content"
              :publishing-function 'org-html-publish-to-html
              :publishing-directory "./public"
-             :with-author nil           ;; Don't include author name
-             :with-creator t            ;; Include Emacs and Org versions in footer
-             :with-toc t                ;; Include a table of contents
-             :section-numbers nil       ;; Don't include section numbers
-             :time-stamp-file nil)))    ;; Don't include time stamp in file
+             :with-author nil           
+             :with-creator t            
+             :with-toc t                
+             :section-numbers nil       
+             :time-stamp-file nil)
+       ;; Componente para publicar imágenes
+       (list "org-site:images"
+             :base-directory "./content/images"
+             :base-extension "gif\\|jpg\\|png"
+             :publishing-directory "./public/images"
+             :recursive t
+             :publishing-function 'org-publish-attachment)))
 
 ;; Generate the site output
 (org-publish-all t)
-
-(message "Generación Completa!")
+(message "FINALIZADO, A LA FIRME!")
